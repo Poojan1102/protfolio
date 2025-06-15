@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Poojan Doshi | AI/ML Cyber Portfolio</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins&display=swap" rel="stylesheet" />
+
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <style>
+    /* Cyberpunk Base Styles */
+    :root {
+      --neon-pink: #ff00ff;
+      --neon-cyan: #00ffff;
+      --neon-green: #39ff14;
+      --dark-bg: #050917;
+      --darker-bg: #0a0f25;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, var(--darker-bg), var(--dark-bg));
+      color: #d1d5db;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Flickering Neon Effect */
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+          0 0 5px var(--neon-pink),
+          0 0 10px var(--neon-pink),
+          0 0 20px var(--neon-pink),
+          0 0 40px var(--neon-pink),
+          0 0 80px var(--neon-pink);
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.4;
+        text-shadow: none;
+      }
+    }
+
+    .neon {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-pink);
+      animation: flicker 3s infinite;
+      letter-spacing: 2px;
+    }
+
+    .neon-green {
+      color: var(--neon-green);
+      text-shadow:
+        0 0 8px var(--neon-green),
+        0 0 15px var(--neon-green),
+        0 0 20px var(--neon-green),
+        0 0 40px var(--neon-green);
+    }
+
+    .neon-cyan {
+      color: var(--neon-cyan);
+      text-shadow:
+        0 0 8px var(--neon-cyan),
+        0 0 15px var(--neon-cyan),
+        0 0 20px var(--neon-cyan),
+        0 0 40px var(--neon-cyan);
+    }
+
+    /* Cyberpunk Terminal Style */
+    .terminal {
+      background: #111111cc;
+      border: 2px solid var(--neon-green);
+      border-radius: 8px;
+      padding: 1.5rem;
+      font-family: 'Source Code Pro', monospace;
+      color: var(--neon-green);
+      box-shadow:
+        0 0 8px var(--neon-green),
+        inset 0 0 12px var(--neon-green);
+    }
+
+    /* Cyberpunk Glow Button */
+    .glow-button {
+      padding: 1rem 3rem;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+      color: #000;
+      box-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-cyan);
+      transition: all 0.4s ease-in-out;
+      cursor: pointer;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .glow-button:hover {
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+      box-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-cyan);
+      transform: scale(1.05);
+    }
+
+    .glow-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.5s;
+      z-index: -1;
+    }
+
+    .glow-button:hover::before {
+      left: 100%;
+    }
+
+    /* Hero Section - Cyberpunk Style */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1;
+      padding: 0 20px;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(
+          circle at center,
+          transparent 0%,
+          var(--dark-bg) 70%
+        );
+      z-index: -1;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80vw;
+      height: 80vh;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: -2;
+      border-radius: 20px;
+      border: 2px solid var(--neon-cyan);
+      box-shadow: 
+        0 0 30px var(--neon-cyan),
+        inset 0 0 30px var(--neon-cyan);
+      filter: brightness(0.4) saturate(1.2);
+      opacity: 0.8;
+    }
+
+    /* Cyberpunk Navigation */
+    .cyber-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(5, 9, 23, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 20px #00000066;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .cyber-nav.scrolled {
+      background: rgba(5, 9, 23, 0.95);
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-pink);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: #d1d5db;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--neon-cyan);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--neon-cyan);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: #d1d5db;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Cyberpunk Sections */
+    .cyber-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+      position: relative;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    /* Cyberpunk Grid */
+    .cyber-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Cyberpunk Card */
+    .cyber-card {
+      background: rgba(11, 18, 35, 0.8);
+      border-left: 4px solid var(--neon-cyan);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cyber-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 255, 255, 0.1),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .cyber-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 0 25px var(--neon-pink),
+        0 0 40px var(--neon-cyan);
+      border-left-color: var(--neon-pink);
+    }
+
+    .cyber-card:hover::before {
+      left: 100%;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      color: var(--neon-cyan);
+      margin-bottom: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .cyber-card:hover .card-icon {
+      color: var(--neon-pink);
+    }
+
+    /* Cyberpunk List */
+    .cyber-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cyber-list-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: rgba(11, 18, 35, 0.4);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border-left: 3px solid var(--neon-cyan);
+    }
+
+    .cyber-list-item:hover {
+      background: rgba(11, 18, 35, 0.8);
+      transform: translateX(10px);
+      box-shadow: 0 0 15px var(--neon-cyan);
+      border-left-color: var(--neon-pink);
+    }
+
+    .list-icon {
+      font-size: 1.5rem;
+      color: var(--neon-cyan);
+      margin-right: 1rem;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    /* About Section */
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .profile-img {
+      width: 300px;
+      height: 300px;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 
+        0 0 20px var(--neon-green),
+        inset 0 0 20px var(--neon-green);
+      border: 2px solid var(--neon-green);
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .profile-img.visible {
+      opacity: 1;
+    }
+
+    /* Typing Animation */
+    .typing-text {
+      min-height: 40px;
+      font-family: 'Source Code Pro', monospace;
+      color: var(--neon-green);
+      white-space: pre-wrap;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--dark-bg);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero-bg {
+        width: 95vw;
+        height: 60vh;
+      }
+
+      .about-container {
+        flex-direction: column;
+      }
+    }
+.sound-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(5, 9, 23, 0.8);
+      border: 1px solid var(--neon-cyan);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+    
+    .sound-control i {
+      font-size: 1.5rem;
+      color: var(--neon-cyan);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Cyberpunk Navigation -->
+  <nav class="cyber-nav" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">POOJAN DOSHI</a>
+      <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#hobbies" class="nav-link">Hobbies</a>
+        <a href="#languages" class="nav-link">Languages</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <img class="hero-bg" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXZmejJyYno3cXcwMmNkdWZ0d3B6d2d6ZXN2b2pnaXNvaHgzNmN2eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jPcJC2afE7ohjmyI1R/giphy.gif" alt="Cyberpunk background animation" />
+    <h1 class="neon text-5xl sm:text-7xl mb-4">POOJAN DOSHI</h1>
+    <p id="heroTyping" class="text-2xl sm:text-3xl font-mono text-cyan-400 mb-8"></p>
+    <button onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})" 
+            class="glow-button">
+      ENTER THE MATRIX
+    </button>
+  </section>
+
+  <!-- About Section -->
+  <section class="cyber-section" id="about">
+    <h2 class="section-title neon-green">
+      <i class="fas fa-terminal mr-3"></i> ABOUT PROFILE
+    </h2>
+    <div class="about-container">
+      <img id="profileImg" src="https://github.com/Poojan1102.png" alt="Poojan Doshi" class="profile-img" />
+      <div class="terminal flex-1 min-w-[300px]">
+        <div id="matrixTyping" class="typing-text"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="cyber-section bg-gradient-to-b from-[#050917] to-[#0a0f25]" id="skills">
+    <h2 class="section-title neon-cyan">
+      <i class="fas fa-brain mr-3"></i> SKILL MATRIX
+    </h2>
+    <div class="cyber-grid">
+      <div class="cyber-card">
+        <i class="fas fa-robot card-icon"></i>
+        <h3 class="text-xl font-bold mb-2">Machine Learning</h3>
+        <p>Building intelligent systems that learn from data</p>
+      </div>
+      <div class="cyber-card">
+        <i class="fas fa-globe card-icon"></i>
+        <h3 class="text-xl font-bold mb-2">Flask & Django</h3>
+        <p>Web development with Python frameworks</p>
+      </div>
+      <div class="cyber-card">
+        <i class="fas fa-chart-line card-icon"></i>
+        <h3 class="text-xl font-bold mb-2">Data Analysis</h3>
+        <p>Extracting insights from complex datasets</p>
+      </div>
+      <div class="cyber-card">
+        <i class="fas fa-database card-icon"></i>
+        <h3 class="text-xl font-bold mb-2">MongoDB & SQL</h3>
+        <p>Database design and management</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hobbies Section -->
+  <section class="cyber-section" id="hobbies">
+    <h2 class="section-title neon-pink">
+      <i class="fas fa-gamepad mr-3"></i> CREATIVE OUTLETS
+    </h2>
+    <div class="cyber-grid">
+      <div class="cyber-card">
+        <i class="fas fa-book card-icon"></i>
+        <h3 class="text-xl font-bold mb-2">Fiction Story Writing</h3>
+        <p>Crafting imaginative narratives and speculative fiction worlds</p>
+      </div>
+      <div class="cyber-card">
+        <i class="fas fa-comments card-icon"></i>
+        <h3 class="text-xl font-bold mb-2">Debating</h3>
+        <p>Engaging in structured arguments on diverse topics</p>
+      </div>
+      <div class="cyber-card">
+        <i class="fas fa-theater-masks card-icon"></i>
+        <h3 class="text-xl font-bold mb-2">Acting</h3>
+        <p>Performing characters and stories on stage</p>
+      </div>
+      <div class="cyber-card">
+        <i class="fas fa-microphone card-icon"></i>
+        <h3 class="text-xl font-bold mb-2">Public Speaking</h3>
+        <p>Delivering impactful speeches and presentations</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Languages Section -->
+  <section class="cyber-section bg-gradient-to-tr from-[#050917] to-[#0a0f25]" id="languages">
+    <h2 class="section-title neon-cyan">
+      <i class="fas fa-language mr-3"></i> LANGUAGE PROTOCOLS
+    </h2>
+    <div class="cyber-list">
+      <div class="cyber-list-item">
+        <i class="fas fa-language list-icon"></i>
+        <div>
+          <h3 class="font-bold">English</h3>
+          <p class="text-sm opacity-80">Professional Proficiency</p>
+        </div>
+      </div>
+      <div class="cyber-list-item">
+        <i class="fas fa-language list-icon"></i>
+        <div>
+          <h3 class="font-bold">Hindi</h3>
+          <p class="text-sm opacity-80">Native or Bilingual Proficiency</p>
+        </div>
+      </div>
+      <div class="cyber-list-item">
+        <i class="fas fa-language list-icon"></i>
+        <div>
+          <h3 class="font-bold">Gujarati</h3>
+          <p class="text-sm opacity-80">Native or Bilingual Proficiency</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="cyber-section" id="projects">
+    <h2 class="section-title neon-green">
+      <i class="fas fa-flask mr-3"></i> PROJECT ARENA
+    </h2>
+    <div class="cyber-grid">
+      <div class="cyber-card">
+        <h3 class="text-xl font-bold mb-2 text-purple-400">IoT Security Detection Using ML</h3>
+        <p>Designed a real-time system detecting network anomalies using MQTT and a Tkinter-based UI.</p>
+      </div>
+      <div class="cyber-card">
+        <h3 class="text-xl font-bold mb-2 text-purple-400">Weather Detection AI (85%)</h3>
+        <p>Classification model with Flask UI. <a href="https://github.com/PoojanDoshi11/Weather_Detection" target="_blank" class="text-cyan-400 hover:text-purple-400">GitHub Repo</a></p>
+      </div>
+      <div class="cyber-card">
+        <h3 class="text-xl font-bold mb-2 text-purple-400">Negative Speech Detector (80%)</h3>
+        <p>NLP model using NLTK and CountVectorizer. <a href="https://github.com/PoojanDoshi11/Speech_Detection" target="_blank" class="text-cyan-400 hover:text-purple-400">View Project</a></p>
+      </div>
+      <div class="cyber-card">
+        <h3 class="text-xl font-bold mb-2 text-purple-400">Housing Price Analysis</h3>
+        <p>Data visualization & regression-based prediction. <a href="https://github.com/PoojanDoshi11/Housing-Price-Analysis" target="_blank" class="text-cyan-400 hover:text-purple-400">GitHub Repo</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="cyber-section bg-gradient-to-br from-[#050917] to-[#0a0f25]" id="contact">
+    <h2 class="section-title neon-cyan">
+      <i class="fas fa-envelope mr-3"></i> CONTACT NEXUS
+    </h2>
+    <div class="text-center">
+      <p class="text-xl mb-6">
+        <i class="fas fa-envelope mr-2 text-cyan-400"></i>
+        <a href="mailto:poojandoshi.linkdin@gmail.com" class="text-cyan-400 hover:text-purple-400">
+          poojandoshi.linkdin@gmail.com
+        </a>
+      </p>
+      <div class="flex justify-center gap-8 text-3xl">
+        <a href="https://www.linkedin.com/in/poojan-doshi-83a027283" target="_blank" class="text-cyan-400 hover:text-purple-400">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/PoojanDoshi11" target="_blank" class="text-cyan-400 hover:text-purple-400">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+<div class="sound-control" id="soundControl" title="Toggle Sound Effects">
+    <i class="fas fa-volume-up"></i>
+  </div>
+  <script>
+    // Initialize AOS animations
+    AOS.init({
+      duration: 1200,
+      once: true,
+      easing: 'ease-in-out',
+    });
+
+    // Typing animations
+    const heroText = "Machine Intelligence Architect | Code Storyteller";
+    const aboutText = `> root@ai:~$ echo "Loading Poojan Doshi Profile..."\n\n` +
+                     `Initializing neural link...\n` +
+                     `Connecting to Darshan University, Rajkot...\n` +
+                     `Compiling skills in Machine Learning, AI, and Data Science...\n` +
+                     `Python, Flask, PyTorch, Scikit-learn loaded.\n` +
+                     `System ready.\n\n` +
+                     `> "A code sorcerer weaving magic in AI's realm."`;
+
+    function typeWriter(element, text, speed, callback) {
+      let i = 0;
+      function typing() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+          element.scrollTop = element.scrollHeight;
+        } else if (callback) {
+          callback();
+        }
+      }
+      typing();
+    }
+
+    // Start typing animations
+    window.addEventListener('load', () => {
+      typeWriter(document.getElementById('heroTyping'), heroText, 50);
+      setTimeout(() => {
+        typeWriter(document.getElementById('matrixTyping'), aboutText, 30, () => {
+          document.getElementById('profileImg').classList.add('visible');
+        });
+      }, 1000);
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      const isExpanded = navLinks.classList.contains('active');
+      menuBtn.setAttribute('aria-expanded', isExpanded);
+      menuBtn.innerHTML = isExpanded 
+        ? '<i class="fas fa-times"></i>' 
+        : '<i class="fas fa-bars"></i>';
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scrolling for all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+
+   // ====================
+    // SOUND EFFECTS SYSTEM
+    // ====================
+    
+    // Audio elements with fallback sources
+    const sounds = {
+      navClick: createAudio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3'),
+      sectionEnter: createAudio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3'),
+      skillHover: createAudio('https://assets.mixkit.co/sfx/preview/mixkit-quick-jump-arcade-game-239.mp3'),
+      buttonHover: createAudio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-mechanical-bling-210.mp3'),
+      buttonClick: createAudio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3'),
+      terminalTyping: createAudio('https://assets.mixkit.co/sfx/preview/mixkit-typing-with-mechanical-keyboard-1385.mp3'),
+      error: createAudio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-game-over-213.mp3')
+    };
+    
+    // Helper function to create audio with better error handling
+    function createAudio(src) {
+      const audio = new Audio(src);
+      audio.preload = 'auto';
+      audio.volume = 0.3;
+      return audio;
+    }
+    
+    // Sound control system
+    let soundEnabled = true;
+    let audioContextInitialized = false;
+    const soundControl = document.getElementById('soundControl');
+    
+    // Initialize audio context on first interaction
+    function initializeAudio() {
+      if (audioContextInitialized) return;
+      
+      // Create and resume audio context
+      if (window.AudioContext || window.webkitAudioContext) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioContext = new AudioContext();
+        
+        if (audioContext.state === 'suspended') {
+          audioContext.resume().then(() => {
+            console.log("AudioContext resumed successfully");
+          });
+        }
+      }
+      
+      // "Warm up" all audio elements
+      Object.values(sounds).forEach(sound => {
+        sound.play().then(() => {
+          sound.pause();
+          sound.currentTime = 0;
+        }).catch(e => {
+          console.log("Audio warmup failed:", e);
+        });
+      });
+      
+      audioContextInitialized = true;
+    }
+    
+    // Sound control toggle
+    soundControl.addEventListener('click', function() {
+      // Always initialize on first interaction
+      initializeAudio();
+      
+      soundEnabled = !soundEnabled;
+      soundControl.innerHTML = soundEnabled 
+        ? '<i class="fas fa-volume-up"></i>' 
+        : '<i class="fas fa-volume-mute"></i>';
+      
+      // Play feedback sound if enabling
+      if (soundEnabled) {
+        playSound('buttonClick');
+      }
+    });
+    
+    // Enhanced play sound function
+    function playSound(soundName) {
+      if (!soundEnabled) return;
+      
+      try {
+        const sound = sounds[soundName];
+        if (!sound) return;
+        
+        sound.currentTime = 0; // Rewind if already playing
+        
+        // Create a clone to allow overlapping sounds
+        const soundClone = sound.cloneNode();
+        soundClone.volume = sound.volume;
+        
+        soundClone.play().catch(e => {
+          console.log(`Sound "${soundName}" playback prevented:`, e);
+          // Fallback to original sound if clone fails
+          sound.play().catch(e => console.log("Fallback sound failed:", e));
+        });
+      } catch (e) {
+        console.error("Sound playback error:", e);
+      }
+    }
+    
+    // Initialize audio on any user interaction
+    const initEvents = ['click', 'keydown', 'touchstart', 'mousedown'];
+    initEvents.forEach(event => {
+      document.addEventListener(event, initializeAudio, { once: true });
+    });
+
+    // ======================
+    // SOUND EFFECTS TRIGGERS
+    // ======================
+    
+    // Navigation clicks
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function() {
+        playSound('navClick');
+      });
+    });
+    
+    // Section enters - more reliable implementation
+    const sectionHistory = new Set();
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !sectionHistory.has(entry.target.id)) {
+          sectionHistory.add(entry.target.id);
+          playSound('sectionEnter');
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('.cyber-section').forEach(section => {
+      sectionObserver.observe(section);
+    });
+    
+    // Skill hovers with debounce to prevent spam
+    let lastHoverTime = 0;
+    document.querySelectorAll('.cyber-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        const now = Date.now();
+        if (now - lastHoverTime > 200) { // 200ms debounce
+          playSound('skillHover');
+          lastHoverTime = now;
+        }
+      });
+    });
+    
+    // Button interactions
+    document.querySelectorAll('.glow-button').forEach(button => {
+      button.addEventListener('mouseenter', function() {
+        playSound('buttonHover');
+      });
+      button.addEventListener('click', function() {
+        playSound('buttonClick');
+      });
+    });
+    
+    // Terminal typing sound with better management
+    let typingSoundInterval;
+    function startTypingSound() {
+      if (!soundEnabled) return;
+      typingSoundInterval = setInterval(() => {
+        playSound('terminalTyping');
+      }, 200);
+    }
+    
+    function stopTypingSound() {
+      clearInterval(typingSoundInterval);
+    }
+    
+    // Modified typeWriter function
+    function typeWriter(element, text, speed, callback) {
+      let i = 0;
+      startTypingSound();
+      
+      function typing() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+          element.scrollTop = element.scrollHeight;
+        } else {
+          stopTypingSound();
+          if (callback) callback();
+        }
+      }
+      typing();
+    }
+</script>
+</body>
+</html>
+</body>
+</html>
